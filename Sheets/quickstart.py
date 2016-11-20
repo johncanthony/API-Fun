@@ -73,9 +73,15 @@ def main():
         print('No data found.')
     else:
         for row in values:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print(row[0])
+            line = row[0]
+	    thing = line.split("(") 
+	    
+	    if(len(thing) >= 2 ):
+	    	uname = thing[1].replace(")","")
+	    else:
+		continue
 
+	    print(uname) 
 if __name__ == '__main__':
     main()
 
