@@ -1,0 +1,9 @@
+Badges:
+
+   Gold        ] B1-B4
+   Silver      ] Y1-Y4
+   Platinum    ] G1-G4
+   3 of a Kind ] any three subset of 4 of a kind
+   4 of a Kind ] B,Y,G,W	
+   8 Cases     ] assigned  	
+   10 Cases    ] assigned
