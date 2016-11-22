@@ -1,14 +1,22 @@
 class CloudUser():
 
     username=''
-    user_cases={}
     case_count=0
     case_types = ['W','B','Y','G']
-
+    user_cases={}
     
-    def __init__(self,uname):
+    def __init__(self,uname='',cc=0,uc={}):
         self.username = uname
-        self.init_user_cases()
+        self.user_cases = self.init_user_cases()
+	self.case_count = cc
+	self.set_user_cases(uc) 
+
+    def __str__(self):
+	builder = "Username: " + self.username + ":" + "\n"
+	builder += "Case Count: " + str(self.case_count) + ":" + "\n"
+	builder += "Cases: " + str(self.user_cases) + "\n"
+	return builder
+
 
     def get_username(self):
         return self.username
@@ -21,22 +29,25 @@ class CloudUser():
         return self.case_count
 
     def init_user_cases(self):
+	temp = {}
         for each in self.case_types:
             for i in range(1,5):
                 label=each+str(i)
-                self.user_cases[label]=0
+                temp[label]=0
+	return temp
 
     def set_user_cases(self,case_list):
-        for each in case_list:
-            self.user_cases[each]+=1
-
+	for each in case_list:
+	    if (each in self.user_cases.keys()):
+            	self.user_cases[str(each)]+=1
+	
+	
 
     def get_user_cases(self):
         return self.user_cases
 
 
    
-
 
 
 #Test Code

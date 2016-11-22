@@ -3,7 +3,8 @@ from __future__ import print_function
 import httplib2
 import os
 import datetime
-import CloudUser
+from CloudUser import *
+from WinStates import *
 
 from apiclient import discovery
 from oauth2client import client
@@ -52,6 +53,7 @@ def get_credentials():
     return credentials
 
 
+
 def get_sheet_values(credentials):
 	http = credentials.authorize(httplib2.Http())
 	discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
@@ -70,15 +72,24 @@ def get_sheet_values(credentials):
 
 	return result.get('values', [])
 
+
 def parse_username(name_line):
-        utl=name_line.split('(')
+        uname_index=name_line.index('(') + 1
+
+	return name_line[uname_index:].rstrip(')')
+
 
 def populate_users(big_list):
         for row in big_list:
-            if(len<3):
-                continue
+	    if(len(row)<3):
+               continue
 
-            
+	    uname=parse_username(row[0])
+	    count=len(row[1])
+	    cases=row[2].split(',')
+            #CloudUser(uname,count,cases)  
+	    Users.append(CloudUser(uname,count,cases))
+
 
 def get_tab_date():
 	date = datetime.date.today()
@@ -94,22 +105,11 @@ def main():
     """
     credentials = get_credentials()
     values = get_sheet_values(credentials)
+    populate_users(values)
+    for each in Users:
+	print(each)
 
-    '''    
-    if not values:
-        print('No data found.')
-    else:
-        for row in values:
-            line = row[0]
-	    thing = line.split("(") 
-	    
-	    if(len(thing) >= 2 ):
-	    	uname = thing[1].replace(")","")
-	    else:
-		continue
 
-	    print(uname)
-   ''' 
 if __name__ == '__main__':
     main()
 
