@@ -19,4 +19,11 @@ def check_straight(kind,cases):
 
       return state
 
-        
+def check_num(count,num):
+	state = False
+	if(count >= num):
+	  state = True
+	
+	return state
+
+

@@ -31,13 +31,14 @@ class WinStatesTest(unittest.TestCase):
             self.assertEqual(check_straight(case_type,user.get_user_cases()),True) 
             
 
-        def test_eight_c(self):
+        def test_eight_cases(self):
             ''' test if user has 8 cases '''
-            pass
+            user = CloudUser('test',8)
+	    self.assertTrue(check_num(user.get_case_count(),8))
 
         def test_ten_cases(self):
-            ''' test if user has 10 cases '''
-            pass
+            user = CloudUser('test',10)
+	    self.assertTrue(check_num(user.get_case_count(),10))
 
 if __name__ == '__main__':
 	unittest.main()
