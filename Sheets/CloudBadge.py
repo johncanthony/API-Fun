@@ -3,6 +3,7 @@ from __future__ import print_function
 import httplib2
 import os
 import datetime
+import CloudUser
 
 from apiclient import discovery
 from oauth2client import client
@@ -20,7 +21,7 @@ except ImportError:
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-
+Users=[]
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -54,28 +55,35 @@ def get_credentials():
 def get_sheet_values(credentials):
 	http = credentials.authorize(httplib2.Http())
 	discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
-                    'version=v4')
+                'version=v4')
 	service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
- 	spreadsheetId = '1uA8bHfl6I7lBPOMGvOkJFwJ4Zidf0olTMHPLC5F17ww'
+        #Test Sheet
+        spreadsheetId = '1uA8bHfl6I7lBPOMGvOkJFwJ4Zidf0olTMHPLC5F17ww'
+        #spreadsheetId ='1n0aWJTFSEtBBq8Ud8dC1JrgYIseuYJfwktmd4hj4_Ts'
 	sheet_tabName = get_tab_date()
-	rangeName = sheet_tabName + '!A3:E'
+	rangeName = sheet_tabName + '!A3:C'
 	result = service.spreadsheets().values().get(
         	spreadsheetId=spreadsheetId, range=rangeName).execute()
 
 
 	return result.get('values', [])
 
+def parse_username(name_line):
+        utl=name_line.split('(')
+
+def populate_users(big_list):
+        for row in big_list:
+            if(len<3):
+                continue
+
+            
+
 def get_tab_date():
 	date = datetime.date.today()
 	return str(date.month)+"/"+str(date.day)
 
-
-def check_straight(row):
-	row.sort()
-	print(row)
-	return False
 
 def main():
     """Shows basic usage of the Sheets API.
