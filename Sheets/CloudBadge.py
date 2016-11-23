@@ -62,10 +62,11 @@ def get_sheet_values(credentials):
                               discoveryServiceUrl=discoveryUrl)
 
         #Test Sheet
-        spreadsheetId = '1uA8bHfl6I7lBPOMGvOkJFwJ4Zidf0olTMHPLC5F17ww'
-        #spreadsheetId ='1n0aWJTFSEtBBq8Ud8dC1JrgYIseuYJfwktmd4hj4_Ts'
+        #spreadsheetId = '1uA8bHfl6I7lBPOMGvOkJFwJ4Zidf0olTMHPLC5F17ww'
+        spreadsheetId ='1n0aWJTFSEtBBq8Ud8dC1JrgYIseuYJfwktmd4hj4_Ts'
 	sheet_tabName = get_tab_date()
-	rangeName = sheet_tabName + '!A3:C'
+	#rangeName = sheet_tabName + '!A3:C'
+        rangeName = sheet_tabName + '!B4:D'
 	result = service.spreadsheets().values().get(
         	spreadsheetId=spreadsheetId, range=rangeName).execute()
 
@@ -74,15 +75,23 @@ def get_sheet_values(credentials):
 
 
 def parse_username(name_line):
-        uname_index=name_line.index('(') + 1
-
-	return name_line[uname_index:].rstrip(')')
+        uname=''
+        if(name_line.index('(')):
+            uname_index=name_line.index('(') + 1
+            uname = name_line[uname_index:].rstrip(')')
+        
+	return uname
 
 
 def populate_users(big_list):
         for row in big_list:
 	    if(len(row)<3):
                continue
+
+            if(row[0] == ""):
+                continue
+            if(row[0] == "Name"):
+                continue
 
 	    uname=parse_username(row[0])
 	    count=len(row[1])
@@ -107,7 +116,8 @@ def main():
     values = get_sheet_values(credentials)
     populate_users(values)
     for each in Users:
-	print(each)
+        check_wins(each)
+        print(each)
 
 if __name__ == '__main__':
     main()

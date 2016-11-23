@@ -10,7 +10,6 @@ class WinStatesTest(unittest.TestCase):
             user = CloudUser('test')
             case_type='gold'
             cases = ['B1','B2','B3','B4'] 
-            print(user.get_user_cases())
             user.set_user_cases(cases)
             self.assertEqual(check_straight(case_type,user.get_user_cases()),True) 
 

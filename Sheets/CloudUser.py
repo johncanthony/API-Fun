@@ -38,8 +38,9 @@ class CloudUser():
 
     def set_user_cases(self,case_list):
 	for each in case_list:
-	    if (each in self.user_cases.keys()):
-            	self.user_cases[str(each)]+=1
+            index=each.lstrip()
+	    if (index in self.user_cases.keys()):
+            	self.user_cases[index]+=1
 	
 	
 
@@ -59,6 +60,5 @@ user.set_case_count(len(cases))
 print(user.get_user_cases())
 
 user.set_user_cases(cases)
-
 print(user.get_user_cases())
 '''
